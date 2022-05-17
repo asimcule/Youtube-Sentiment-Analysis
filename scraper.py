@@ -13,8 +13,9 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 api_service_name = "youtube"
 api_version = "v3"
-DEVELOPER_KEY = "#Add your developer key"
-id = "#Add the video ID"
+DEVELOPER_KEY = "#Your Api key"
+id = "#replace with the youtube video id"
+result_no = 100
 comments_and_authors = []
 
 
@@ -23,7 +24,8 @@ youtube = googleapiclient.discovery.build(
 
 request = youtube.commentThreads().list(
     part="id, snippet, replies",
-    videoId=id
+    videoId=id,
+    maxResults = result_no
 )
 
 response = request.execute()
@@ -49,7 +51,8 @@ while True:
         request = youtube.commentThreads().list(
             part="id, snippet, replies",
             pageToken = token,
-            videoId=id
+            videoId=id,
+            maxResults = result_no
 
         )
         response = request.execute()
